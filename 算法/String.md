@@ -227,7 +227,7 @@ Explanation: You need to reduce multiple spaces between two words to a single sp
     }
 ```
 
-LeetCode 58 Length of Last Word
+**LeetCode 58 Length of Last Word**
 
 给定一个由字母和空格组成的字符串，找出最后一个单词的长度。如果最后一个单词不存在，返回0；
 
@@ -258,7 +258,7 @@ public int lengthOfLastWord(String s) {
     }
 ```
 
-LeetCode 67 Add Binary
+**LeetCode 67 Add Binary**
 
 给定两个二进制字符串，返回二进制和
 
@@ -301,6 +301,38 @@ public String addBinary(String a, String b) {
         return sb.reverse().toString();
     }
 ```
+
+## 字符串替换拼接
+
+**leetcode.929 Unique Email Addresses**
+
+每个email由 字符串1 + @ + 字符串，如 `alice@leetcode.com`。现在规定，字符串1出现 ' . ' 则忽略。出现 ' + '，后面的字符串舍去。如：`m.y+name@email.com` 最终是 `my@email.com` 。现在给定字符串数组，求有多少中不同类型
+
+```
+Input: ["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]
+Output: 2
+Explanation: "testemail@leetcode.com" and "testemail@lee.tcode.com" actually receive mails
+```
+
+使用字符串的方法 replace 和 split 重新将email字符串拼接，然后放入HashSet，最终计算size。
+
+```java
+	public int numUniqueEmails(String[] emails) {
+        HashSet<String> hashSet = new HashSet<>();
+
+        for (String e: emails) {
+            String[] str = e.split("@");
+            String[] local = str[0].split("\\+");
+            hashSet.add(local[0].replace(".", "") + "@" + str[1]);
+        }
+
+        return hashSet.size();
+    }
+```
+
+
+
+
 
 
 

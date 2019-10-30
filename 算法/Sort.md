@@ -385,6 +385,49 @@ private void swap(int[] nums, int i, int j) {
 }
 ```
 
+LeetCode.1051 Height Checker
+
+给定数组，如果按照不降的顺序，数组中元素不和排序后相同的数量是多少
+
+```
+Input: [1,1,4,2,1,3]
+Output: 3
+Explanation: 
+Students with heights 4, 3 and the last 1 are not standing in the right positions.
+[1,1,4,2,1,3]
+[1,1,1,2,3,4]
+```
+
+方法一：将数组排序，与原排序内容一一比较，然后计数不一样值位置的个数
+
+方法二：直接计数各个数组元素出现的个数，然后比较对应位置值。
+
+```java
+	public int heightChecker(int[] heights) {
+        int[] heightToFreq = new int[101];
+        
+        for (int height : heights) {
+            heightToFreq[height]++;
+        }
+        
+        int result = 0;
+        int curHeight = 0;
+        
+        for (int i = 0; i < heights.length; i++) {
+            while (heightToFreq[curHeight] == 0) {
+                curHeight++;
+            }
+            
+            if (curHeight != heights[i]) {
+                result++;
+            }
+            heightToFreq[curHeight]--;
+        }
+        
+        return result;
+    }
+```
+
 
 
 

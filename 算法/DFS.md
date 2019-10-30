@@ -6,7 +6,7 @@
 
 给定一棵二叉树，判断是否存在从根节点到叶子节点和等于sum的路径，返回true或者false
 
-```
+```java
 Given the below binary tree and sum = 22,
 
       5
@@ -21,7 +21,7 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 
 递归调用，判断分两种情况，root == null表示找不到，root.left 和root.right都为null表示root为叶子节点，就需要判断val是否等于sum。其他情况往树的下一层找。
 
-```
+```java
 public boolean hasPathSum_1(TreeNode root, int sum) {
         if (root == null){
             return false;
@@ -46,7 +46,7 @@ LeetCode 113 Path Sum II
 
 给定一棵二叉树，计算所有从根节点到叶子节点和等于sum的路径，并保存。
 
-```
+```java
 Given the below binary tree and sum = 22,
 
       5
@@ -65,7 +65,7 @@ Return:
 
 递归调用,res保存所有的路径，temp保存从根节点到其中一条叶子节点的路径。所以，在添加val后，如果递归完返回，需要把该val删除。如果满足找到的叶子节点（root.left root.right为null），就判断val与sum是否相等，相等添加进res，不相等递归调用返回(回溯思想)。
 
-```
+```java
 public List<List<Integer>> pathSum(TreeNode root, int sum) {
         List<List<Integer>>  res = new ArrayList<>();
         ArrayList<Integer> temp = new ArrayList<>();
@@ -106,7 +106,7 @@ LeetCode 437 Path Sum III
 
 给定一颗二叉树，计算所有从一个节点到另一个节点和等于sum的路径，并保存。节点不一定是根节点到叶子节点，但是保证从父节点到子节点。
 
-```
+```java
 root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
       10
      /  \
@@ -123,7 +123,7 @@ Return 3. The paths that sum to 8 are:
 
 从根节点开始递归寻找（pathSum）。每一次递归的根节点开始寻找值等于sum（dfs）
 
-```
+```java
  	int res = 0;
     public int pathSum(TreeNode root, int sum) {
         if (root == null){
@@ -147,58 +147,13 @@ Return 3. The paths that sum to 8 are:
     }
 ```
 
-LeetCode 257 Binary Tree Paths
-
-给定二叉树，返回所有从根节点到叶子节点的路径
-
-```
-Input:
-   1
- /   \
-2     3
- \
-  5
-Output: ["1->2->5", "1->3"]
-Explanation: All root-to-leaf paths are: 1->2->5, 1->3
-```
-
-因为没有限制条件，只需要直接递归到下一个节点并保存，所以不需要回溯，参考寻找路径等于sum II
-
-```
-public List<String> binaryTreePaths(TreeNode root) {
-        List<String> res = new ArrayList<>();
-        if (root == null)
-            return res;
-
-        dfs(root,res,"");
-        return res;
-    }
-
-    public void dfs(TreeNode root, List<String> res, String s){
-        if (root == null){
-            return;
-        }
-
-        if (root.left == null && root.right == null){
-            res.add(s + root.val);
-        }
-
-        if (root.left != null){
-            dfs(root.left,res,s+root.val + "->");
-        }
-        if (root.right != null){
-            dfs(root.right,res,s+root.val + "->");
-        }
-    }
-```
-
 LeetCode 494 Target Sum
 
 本题使用DFS的方法寻找sum值，结构是二叉树路径和。
 
 题意：给定一串不包含负数的list。只能用+ -两种符号，找出所有运算sum等于target的路径数。
 
-```
+```java
 Input: nums is [1, 1, 1, 1, 1], S is 3. 
 Output: 5
 Explanation: 
@@ -210,7 +165,7 @@ Explanation:
 There are 5 ways to assign symbols to make the sum of nums be target 3.
 ```
 
-```
+```java
 	int result = 0;
     public int findTargetSumWays(int[] nums, int S) {
         if (nums == null || nums.length == 0) return result;
@@ -232,7 +187,7 @@ LeetCode 404 Sum of Left Leaves
 
 给定二叉树，计算所有左叶子的和
 
-```
+```java
  	3
    / \
   9  20
@@ -243,7 +198,7 @@ There are two left leaves in the binary tree, with values 9 and 15 respectively.
 
 DFS+ArrayList保存左叶子节点值
 
-```
+```java
 	public int sumOfLeftLeaves(TreeNode root) {
          ArrayList<Integer> arr = new ArrayList<>();
         if(root == null){
@@ -279,7 +234,7 @@ LeetCode 938 Range Sum of BST
 
 给定一颗二叉查找树，左子树位置和右子树位置。求前序遍历后，左子树到右子树的和
 
-```
+```java
 Input: root = [10,5,15,3,7,null,18], L = 7, R = 15
 Output: 32
 Input: root = [10,5,15,3,7,13,18,1,null,6], L = 6, R = 10
@@ -288,7 +243,7 @@ Output: 23
 
 DFS先序遍历
 
-```
+```java
  public int rangeSumBST(TreeNode root, int L, int R) {
          if (root == null){
             return 0;
@@ -320,11 +275,60 @@ DFS先序遍历
     }
 ```
 
-LeetCode 337 House Robber III
+## 寻找二叉树路径
+
+**LeetCode 257 Binary Tree Paths**
+
+给定二叉树，返回所有从根节点到叶子节点的路径
+
+```java
+Input:
+   1
+ /   \
+2     3
+ \
+  5
+Output: ["1->2->5", "1->3"]
+Explanation: All root-to-leaf paths are: 1->2->5, 1->3
+```
+
+因为没有限制条件，只需要直接递归到下一个节点并保存，所以不需要回溯，参考寻找路径等于sum II
+
+```java
+public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<>();
+        if (root == null)
+            return res;
+
+        dfs(root,res,"");
+        return res;
+    }
+
+    public void dfs(TreeNode root, List<String> res, String s){
+        if (root == null){
+            return;
+        }
+
+        if (root.left == null && root.right == null){
+            res.add(s + root.val);
+        }
+
+        if (root.left != null){
+            dfs(root.left,res,s+root.val + "->");
+        }
+        if (root.right != null){
+            dfs(root.right,res,s+root.val + "->");
+        }
+    }
+```
+
+## 寻找二叉树极值
+
+**LeetCode 337 House Robber III**
 
 抢劫位置只能隔一层抢劫一层
 
-```
+```java
 Input: [3,2,3,null,3,null,1]
 
      3
@@ -337,7 +341,7 @@ Output: 7
 Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
 ```
 
-```
+```java
 	public int rob(TreeNode root) {
        if (root == null){
             return 0;
@@ -359,7 +363,7 @@ LeetCode 100 Same Tree
 
 判断二叉树是否相等
 
-```
+```java
 Input:     1         1
           / \       / \
          2   3     2   3
@@ -378,7 +382,7 @@ Output: false
 
 用DFS
 
-```
+```java
 public boolean isSameTree(TreeNode p, TreeNode q) {
         if(p == null && q == null){
             return true;
@@ -400,7 +404,7 @@ public boolean isSameTree(TreeNode p, TreeNode q) {
 
 找二叉树中的第二小的值。
 
-```
+```java
 Input: 
     2
    / \
@@ -421,7 +425,7 @@ Explanation: The smallest value is 2, but there isn't any second smallest value.
 
 在不考虑题中的条件设置，直接使用DFS遍历，HashSet记录值。在记录值中找到第二小
 
-```
+```java
 	public int findSecondMinimumValue(TreeNode root) {
         HashSet<Integer> hashSet = new HashSet<>();
 
@@ -464,11 +468,13 @@ Explanation: The smallest value is 2, but there isn't any second smallest value.
     }
 ```
 
+## 寻找二叉树子树
+
 LeetCode 572 Subtree of Another Tree
 
 二叉树s，t，判断t是s的子树
 
-```
+```java
 Given tree s:
 
      3
@@ -498,7 +504,7 @@ Given tree t:
 
 深度优先遍历，需要遍历s，t；s.left，t；s.right，t；
 
-```
+```java
 public boolean isSubtree(TreeNode s, TreeNode t) {
         if (s == null){
             return false;
@@ -524,7 +530,65 @@ public boolean isSubtree(TreeNode s, TreeNode t) {
     }
 ```
 
+**700.Search in a Binary Search Tree**
 
+给定一个二叉搜索树和val值，输出val值对应二叉树节点位置的子树
+
+```java
+Given the tree:
+        4
+       / \
+      2   7
+     / \
+    1   3
+
+And the value to search: 2
+You should return this subtree:
+
+      2     
+     / \   
+    1   3
+```
+
+因为是二叉搜索树，只需要比较node.val和给定val值大小，val大，往右子树寻找，val小，往左子树寻找
+
+```java
+	public TreeNode searchBST_1(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+
+        TreeNode res = null;
+        res = findSubTree(root,val);
+        return res;
+
+    }
+
+    private TreeNode findSubTree(TreeNode root,int val){
+        if (root == null){
+            return null;
+        }
+
+        if (root.val == val){
+            return root;
+        }else if (root.val < val){
+            return findSubTree(root.right,val);
+        }else {
+            return findSubTree(root.left,val);
+        }
+
+    }
+
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+```
 
 
 
