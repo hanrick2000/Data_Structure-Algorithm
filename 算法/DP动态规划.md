@@ -6,7 +6,7 @@
 
 给定一个整数，可以由多个数相加，求多个数乘机的最大值
 
-```
+```java
 Input: 2
 Output: 1
 Explanation: 2 = 1 + 1, 1 × 1 = 1.
@@ -17,7 +17,7 @@ Explanation: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36.
 
 DP
 
-```
+```java
 class Solution {
     public int integerBreak(int n) {
         //dp[i] means output when input = i, e.g. dp[4] = 4 (2*2),dp[8] = 18 (2*2*3)...
@@ -40,7 +40,7 @@ LeetCode 55 Jump Game
 
 给定一个数组，初始在index=0位置。每个元素代表可以最大跳数。判断能否跳到最后一个位置。
 
-```
+```java
 Example 1:
 Input: [2,3,1,1,4]
 Output: true
@@ -55,7 +55,7 @@ Explanation: You will always arrive at index 3 no matter what. Its maximum
 
 记录每个点往后跳的值，比较得出最大值，当位置i>max，就不能跳到，否则可以继续从i点跳。
 
-```
+```java
 public boolean canJump(int[] nums) {
         if (nums == null || nums.length == 0){
             return false;
@@ -79,7 +79,7 @@ public boolean canJump(int[] nums) {
 
 在M*N的方格中，机器人在左上角，终点在右下角。机器人只能向右或者向下。总共有多少条路
 
-```
+```java
 Input: m = 3, n = 2
 Output: 3
 Explanation:
@@ -91,7 +91,7 @@ From the top-left corner, there are a total of 3 ways to reach the bottom-right 
 
 转移方程`dp[i][j] = dp[i-1][j] + dp[i][j-1]`
 
-```
+```java
 public int uniquePaths(int m, int n) {
         int[][] dp = new int[m][n];
 
@@ -113,7 +113,7 @@ public int uniquePaths(int m, int n) {
 
 在62的基础上，增加障碍物。判断有多少路
 
-```
+```java
 Input:
 [
   [0,0,0],
@@ -130,7 +130,7 @@ There are two ways to reach the bottom-right corner:
 
 参考62，当在第一行或者第一列时，如果存在障碍物，该行或列之后的值都为0。所以只要增加上第一行或第一列判断就可
 
-```
+```java
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
         int m = obstacleGrid.length;
         int n = obstacleGrid[0].length;
@@ -175,7 +175,7 @@ There are two ways to reach the bottom-right corner:
 
 输入n，输出1-n可以组成二叉查找树的个数
 
-```
+```java
 Input: 3
 Output: 5
 Explanation:
@@ -195,19 +195,19 @@ G[0] = G[1] = 1
 
 DP函数：
 
-```
+```java
 G(n) = F(1, n) + F(2, n) + ... + F(n, n).     
 G(0)=1, G(1)=1. 
 ```
 
 推导：
 
-```
+```java
 F(i, n) = G(i-1) * G(n-i)
 G(n) = G(0) * G(n-1) + G(1) * G(n-2) + … + G(n-1) * G(0)
 ```
 
-```
+```java
 public int numTrees(int n) {
     int [] G = new int[n+1];
     G[0] = G[1] = 1;
@@ -226,7 +226,7 @@ public int numTrees(int n) {
 
 输入n，输出1-n可以组成二叉查找树的所有情况
 
-```
+```java
 Input: 3
 Output:
 [
@@ -248,7 +248,7 @@ The above output corresponds to the 5 unique BST's shown below:
 
 思路按照LeetCode 96。按照题目要求，需要记录每一种二叉查找树，所以采用分治法
 
-```
+```java
 public List<TreeNode> generateTrees(int n) {
         List<TreeNode> res = new ArrayList<>();
         if (n == 0){
@@ -290,7 +290,7 @@ LeetCode 91 Decode Ways
 
 从A-Z代表1-26，现在给定数字字符串，输出由A-Z组成的方式
 
-```
+```java
 Example 1:
 Input: "12"
 Output: 2
@@ -304,7 +304,7 @@ Explanation: It could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 
 可以用动态规划，从字符串的末尾往前（从前往后遇到 "100","01","10"等数字0出现问题没解决，qaq）
 
-```
+```java
 public static int numDecodings_1(String s) {
         //DP
         int n = s.length();
@@ -327,11 +327,65 @@ public static int numDecodings_1(String s) {
     }
 ```
 
+## 斐波那契方法
 
+1. [newcoder]([https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3?tpId=13&tqId=11160&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking](https://www.nowcoder.com/practice/c6c7742f5ba7442aada113136ddea0c3?tpId=13&tqId=11160&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking))
 
+大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n<=39
 
+```java
+public int Fibonacci_1(int n) {
+        if (n == 0){
+            return 0;
+        }
+        if (n == 1){
+            return 1;
+        }
 
+        int a = 1;
+        int b = 2;
+        int res = 0;
+        for (int i = 1; i < n; i++) {
+            res = a;
+            int tmp = a;
+            a = b;
+            b = tmp + b;
+        }
 
+        return res;
+
+    }
+```
+
+2. [newcoder]([https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=13&tqId=11161&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking](https://www.nowcoder.com/practice/8c82a5b80378478f9484d87d1c5f12a4?tpId=13&tqId=11161&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking))
+
+一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。
+
+```java
+	public int JumpFloor_1(int target) {
+        if (target <= 1) {
+            return 1;
+        }
+
+        return JumpFloor_1(target - 1) + JumpFloor_1(target - 2);
+    }
+```
+
+3. [newcoder]([https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking](https://www.nowcoder.com/practice/22243d016f6b47f2a6928b4313c85387?tpId=13&tqId=11162&tPage=1&rp=1&ru=/ta/coding-interviews&qru=/ta/coding-interviews/question-ranking))
+
+一只青蛙一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。
+
+```java
+	public int JumpFloorII_1(int target) {
+        if (target <= 0){
+            return -1;
+        }else if (target == 1){
+            return 1;
+        }else {
+            return 2*JumpFloorII_1(target-1);
+        }
+    }
+```
 
 
 

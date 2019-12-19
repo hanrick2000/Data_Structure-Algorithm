@@ -275,7 +275,7 @@ DFS先序遍历
     }
 ```
 
-## 寻找二叉树路径
+## 二叉树路径
 
 **LeetCode 257 Binary Tree Paths**
 
@@ -322,7 +322,7 @@ public List<String> binaryTreePaths(TreeNode root) {
     }
 ```
 
-## 寻找二叉树极值
+## 二叉树极值
 
 **LeetCode 337 House Robber III**
 
@@ -468,7 +468,7 @@ Explanation: The smallest value is 2, but there isn't any second smallest value.
     }
 ```
 
-## 寻找二叉树子树
+## 二叉树子树
 
 LeetCode 572 Subtree of Another Tree
 
@@ -590,7 +590,66 @@ You should return this subtree:
     }
 ```
 
+## 二叉树镜像
 
+给定二叉树，将其变为原二叉树的镜像
+
+```
+二叉树的镜像定义：源二叉树 
+    	    8
+    	   /  \
+    	  6   10
+    	 / \  / \
+    	5  7 9 11
+ 
+ 镜像二叉树
+    	    8
+    	   /  \
+    	  10   6
+    	 / \  / \
+    	11 9 7  5
+```
+
+使用递归调用，找到叶子节点，交换，然后往回交换。
+
+```java
+public void Mirror_1(TreeNode root) {
+        if(root == null){
+            return;
+        }
+
+        dfs(root);
+    }
+
+    private void dfs(TreeNode root){
+        if (root == null){
+            return;
+        }
+
+        if (root.left != null){
+            dfs(root.left);
+        }
+
+        if (root.right != null){
+            dfs(root.right);
+        }
+
+        TreeNode tmp = root.left;
+        root.left = root.right;
+        root.right = tmp;
+    }
+
+    public class TreeNode {
+        int val = 0;
+        TreeNode left = null;
+        TreeNode right = null;
+
+        public TreeNode(int val) {
+            this.val = val;
+
+        }
+    }
+```
 
 
 
